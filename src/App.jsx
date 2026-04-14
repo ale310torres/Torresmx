@@ -157,7 +157,12 @@ export default function App() {
             <a className="btn btn-outline" href="#catalogo">
               Ver catálogo
             </a>
-            <a className="btn btn-primary" href="https://wa.me/17874154344" target="_blank" rel="noreferrer">
+            <a
+              className="btn btn-primary"
+              href="https://wa.me/17874154344"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Phone size={16} />
               WhatsApp
             </a>
