@@ -11,7 +11,7 @@ body,
 }
 
 body {
-  background: #0f172a;
+  background: #0b1220;
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -29,9 +29,9 @@ input {
 .page {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 25%),
-    radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.1), transparent 25%),
-    #0f172a;
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.08), transparent 28%),
+    #0b1220;
 }
 
 .container {
@@ -39,39 +39,63 @@ input {
   margin: 0 auto;
 }
 
+.announcement {
+  background: #111827;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.announcement-inner {
+  min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
 .topbar {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(15, 23, 42, 0.92);
+  background: rgba(11, 18, 32, 0.9);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
 }
 
 .topbar-inner {
+  min-height: 84px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  padding: 16px 0;
+  gap: 24px;
 }
 
 .brand {
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 900;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
 }
 
 .brand-sub {
-  color: rgba(255, 255, 255, 0.64);
-  font-size: 13px;
   margin-top: 4px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.nav a:hover {
+  color: #ffffff;
 }
 
 .topbar-actions {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
 }
 
 .btn {
@@ -79,8 +103,8 @@ input {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: none;
   border-radius: 14px;
+  border: none;
   padding: 13px 18px;
   font-weight: 700;
   cursor: pointer;
@@ -97,7 +121,7 @@ input {
 }
 
 .btn-outline {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
@@ -112,33 +136,46 @@ input {
 }
 
 .hero {
+  position: relative;
+  overflow: hidden;
   padding: 72px 0 48px;
 }
 
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11, 18, 32, 0.9), rgba(11, 18, 32, 0.65)),
+    url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1600&q=80') center/cover;
+  opacity: 0.28;
+}
+
 .hero-grid {
+  position: relative;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: 24px;
   align-items: center;
 }
 
 .pill {
   display: inline-block;
+  margin-bottom: 18px;
   padding: 10px 14px;
   border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
   background: rgba(34, 197, 94, 0.12);
   color: #86efac;
   border: 1px solid rgba(34, 197, 94, 0.25);
-  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .hero-copy h1 {
-  font-size: clamp(40px, 6vw, 70px);
-  line-height: 0.95;
   margin: 0 0 16px;
+  font-size: clamp(42px, 6vw, 74px);
+  line-height: 0.95;
   font-weight: 900;
+  max-width: 760px;
 }
 
 .hero-copy h1 span {
@@ -146,10 +183,11 @@ input {
 }
 
 .hero-copy p {
-  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.74);
   font-size: 18px;
   line-height: 1.7;
-  max-width: 700px;
 }
 
 .hero-buttons {
@@ -159,43 +197,45 @@ input {
   margin-top: 28px;
 }
 
-.hero-stats {
+.hero-mini {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin-top: 28px;
 }
 
-.mini-stat,
-.hero-card,
-.benefit-card,
+.hero-mini-card,
+.hero-panel,
+.category-card,
+.feature-card,
 .product-card,
 .contact-card,
-.empty-state {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.empty-state,
+.brand-pill {
   background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 22px;
 }
 
-.mini-stat {
+.hero-mini-card {
   padding: 16px;
 }
 
-.mini-stat strong {
+.hero-mini-card strong {
   display: block;
   margin-bottom: 6px;
 }
 
-.mini-stat span {
-  color: rgba(255, 255, 255, 0.62);
+.hero-mini-card span {
   font-size: 14px;
+  color: rgba(255, 255, 255, 0.62);
 }
 
-.hero-card {
+.hero-panel {
   padding: 24px;
 }
 
-.hero-card-label,
+.hero-panel-top,
 .section-label,
 .product-category {
   text-transform: uppercase;
@@ -205,61 +245,101 @@ input {
   color: #86efac;
 }
 
-.hero-categories {
+.hero-panel-list {
   display: grid;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 18px;
 }
 
-.hero-category {
-  display: flex;
+.panel-item {
+  display: grid;
+  grid-template-columns: 18px 1fr 16px;
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .hero-note {
   margin-top: 18px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.68);
   line-height: 1.6;
 }
 
-.benefits {
-  padding: 12px 0 32px;
+.category-strip {
+  padding: 8px 0 28px;
 }
 
-.benefits-grid {
+.category-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.category-card {
+  padding: 22px;
+}
+
+.category-card-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.category-card-link {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.features {
+  padding: 8px 0 36px;
+}
+
+.features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
-.benefit-card {
-  padding: 20px;
+.feature-card {
   display: flex;
   gap: 14px;
-  align-items: flex-start;
+  padding: 22px;
 }
 
-.benefit-card p {
-  margin: 6px 0 0;
-  color: rgba(255, 255, 255, 0.68);
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(34, 197, 94, 0.12);
+  color: #86efac;
+  flex-shrink: 0;
+}
+
+.feature-card p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.66);
   line-height: 1.6;
 }
 
 .catalog {
-  padding: 40px 0 72px;
+  padding: 36px 0 72px;
 }
 
 .section-head {
   margin-bottom: 24px;
 }
 
+.section-head.compact {
+  margin-bottom: 18px;
+}
+
 .section-head h2 {
-  font-size: clamp(28px, 4vw, 48px);
   margin: 8px 0 10px;
+  font-size: clamp(30px, 4vw, 52px);
 }
 
 .section-head p {
@@ -278,7 +358,7 @@ input {
   gap: 10px;
   padding: 14px 16px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -313,8 +393,8 @@ input {
 }
 
 .results-bar {
-  color: rgba(255, 255, 255, 0.68);
   margin: 10px 0 18px;
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .product-grid {
@@ -328,7 +408,7 @@ input {
 }
 
 .product-image {
-  height: 210px;
+  height: 220px;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -338,10 +418,10 @@ input {
   position: absolute;
   top: 14px;
   left: 14px;
-  background: rgba(15, 23, 42, 0.88);
-  color: #ffffff;
   padding: 8px 10px;
   border-radius: 999px;
+  background: rgba(11, 18, 32, 0.86);
+  color: #ffffff;
   font-size: 12px;
   font-weight: 700;
 }
@@ -351,25 +431,25 @@ input {
 }
 
 .product-body h3 {
+  margin: 10px 0 14px;
   font-size: 18px;
   line-height: 1.4;
-  margin: 10px 0 14px;
 }
 
 .product-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 13px;
 }
 
 .product-footer {
+  margin-top: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-top: 18px;
 }
 
 .price {
@@ -381,7 +461,22 @@ input {
 .empty-state {
   padding: 24px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.brands {
+  padding: 0 0 48px;
+}
+
+.brands-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.brand-pill {
+  padding: 14px 18px;
+  font-weight: 800;
 }
 
 .contact {
@@ -394,13 +489,13 @@ input {
   gap: 18px;
   padding: 28px;
   border-radius: 28px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.18);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(59, 130, 246, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .contact-box h2 {
-  font-size: clamp(30px, 4vw, 52px);
   margin: 8px 0 12px;
+  font-size: clamp(30px, 4vw, 52px);
 }
 
 .contact-box p {
@@ -417,9 +512,9 @@ input {
 
 .contact-card span {
   display: block;
+  margin-bottom: 5px;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.58);
-  margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -430,15 +525,21 @@ input {
 
 @media (max-width: 1100px) {
   .hero-grid,
-  .contact-box,
+  .hero-mini,
+  .category-strip-grid,
+  .features-grid,
   .product-grid,
-  .benefits-grid,
-  .hero-stats {
+  .contact-box {
     grid-template-columns: 1fr;
+  }
+
+  .nav {
+    display: none;
   }
 }
 
 @media (max-width: 768px) {
+  .announcement-inner,
   .topbar-inner {
     flex-direction: column;
     align-items: flex-start;
