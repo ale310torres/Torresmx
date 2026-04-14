@@ -8,6 +8,7 @@ import {
   Truck,
   Star,
   Phone,
+  ChevronRight,
 } from 'lucide-react';
 
 const inventory = [
@@ -21,7 +22,7 @@ const inventory = [
     price: 34.99,
     badge: 'Top Seller',
     image:
-      'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 2,
@@ -33,7 +34,7 @@ const inventory = [
     price: 119.99,
     badge: 'Race Ready',
     image:
-      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 3,
@@ -45,7 +46,7 @@ const inventory = [
     price: 149.99,
     badge: 'Popular',
     image:
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 4,
@@ -57,7 +58,7 @@ const inventory = [
     price: 89.99,
     badge: 'Durable',
     image:
-      'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 5,
@@ -81,7 +82,7 @@ const inventory = [
     price: 239.99,
     badge: 'Premium',
     image:
-      'https://images.unsplash.com/photo-1517846693594-1567da72af75?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 7,
@@ -93,7 +94,7 @@ const inventory = [
     price: 599.99,
     badge: 'Heavy Duty',
     image:
-      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 8,
@@ -105,7 +106,7 @@ const inventory = [
     price: 54.99,
     badge: 'Best Value',
     image:
-      'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1200&q=80',
   },
 ];
 
@@ -117,6 +118,24 @@ const categories = [
   'Auto Parts',
   'Brakes',
   'Suspension',
+];
+
+const featureCards = [
+  {
+    icon: ShieldCheck,
+    title: 'Piezas confiables',
+    text: 'OEM y aftermarket para diferentes necesidades y presupuestos.',
+  },
+  {
+    icon: Wrench,
+    title: 'Soporte práctico',
+    text: 'Te ayudamos a identificar piezas por marca, modelo y año.',
+  },
+  {
+    icon: Truck,
+    title: 'Catálogo simple',
+    text: 'Encuentra rápido lo que buscas con filtros y búsqueda directa.',
+  },
 ];
 
 export default function App() {
@@ -146,17 +165,27 @@ export default function App() {
 
   return (
     <div className="page">
+      <header className="announcement">
+        <div className="container announcement-inner">
+          <span>Torresmx</span>
+          <span>Piezas • Gomas • OEM • ATV • Dirt Bike • Auto Parts</span>
+        </div>
+      </header>
+
       <header className="topbar">
         <div className="container topbar-inner">
           <div className="brand-wrap">
-            <div className="brand">Torresmx</div>
-            <div className="brand-sub">ATV • Dirt Bike • Auto Parts</div>
+            <div className="brand">TORRESMX</div>
+            <div className="brand-sub">ATV, Dirt Bike & Auto Parts</div>
           </div>
 
+          <nav className="nav">
+            <a href="#categorias">Categorías</a>
+            <a href="#catalogo">Productos</a>
+            <a href="#contacto">Contacto</a>
+          </nav>
+
           <div className="topbar-actions">
-            <a className="btn btn-outline" href="#catalogo">
-              Ver catálogo
-            </a>
             <a
               className="btn btn-primary"
               href="https://wa.me/17874154344"
@@ -171,102 +200,103 @@ export default function App() {
       </header>
 
       <section className="hero">
+        <div className="hero-overlay" />
         <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="pill">OEM Parts • ATV Tires • Dirt Bike Parts</div>
+            <div className="pill">OEM PARTS • ATV TIRES • DIRT BIKE PARTS</div>
             <h1>
-              Piezas, gomas y accesorios para <span>ATV, motoras y autos</span>
+              Todo lo que necesitas para tu <span>ATV, motora o auto</span>
             </h1>
             <p>
-              Encuentra piezas OEM, frenos, suspensión, gomas y accesorios para
-              tus proyectos y mantenimiento. Atención rápida y ventas directas
-              por WhatsApp.
+              Catálogo práctico para piezas OEM, frenos, suspensión, gomas y
+              accesorios. Busca rápido y escríbenos directo por WhatsApp para
+              disponibilidad.
             </p>
 
             <div className="hero-buttons">
               <a className="btn btn-primary" href="#catalogo">
                 <ShoppingCart size={16} />
-                Explorar productos
+                Ver catálogo
               </a>
-              <a
-                className="btn btn-outline"
-                href="https://wa.me/17874154344?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20sus%20productos"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Phone size={16} />
-                Pedir información
+              <a className="btn btn-outline" href="#contacto">
+                Solicitar pieza
               </a>
             </div>
 
-            <div className="hero-stats">
-              <div className="mini-stat">
+            <div className="hero-mini">
+              <div className="hero-mini-card">
                 <strong>OEM & Aftermarket</strong>
                 <span>Opciones para distintos budgets</span>
               </div>
-              <div className="mini-stat">
+              <div className="hero-mini-card">
                 <strong>Atención rápida</strong>
                 <span>WhatsApp directo</span>
               </div>
-              <div className="mini-stat">
-                <strong>Catálogo práctico</strong>
-                <span>Búsqueda y filtros simples</span>
+              <div className="hero-mini-card">
+                <strong>Catálogo moderno</strong>
+                <span>Visual y fácil de usar</span>
               </div>
             </div>
           </div>
 
-          <div className="hero-card">
-            <div className="hero-card-label">Categorías principales</div>
-            <div className="hero-categories">
-              <div className="hero-category">
+          <div className="hero-panel">
+            <div className="hero-panel-top">Top categorías</div>
+            <div className="hero-panel-list">
+              <div className="panel-item">
                 <Bike size={18} />
                 <span>Dirt Bike Parts</span>
+                <ChevronRight size={16} />
               </div>
-              <div className="hero-category">
+              <div className="panel-item">
                 <Truck size={18} />
                 <span>ATV Tires</span>
+                <ChevronRight size={16} />
               </div>
-              <div className="hero-category">
+              <div className="panel-item">
                 <Wrench size={18} />
                 <span>OEM Parts</span>
+                <ChevronRight size={16} />
               </div>
-              <div className="hero-category">
+              <div className="panel-item">
                 <ShieldCheck size={18} />
                 <span>Auto Parts</span>
+                <ChevronRight size={16} />
               </div>
             </div>
-
             <div className="hero-note">
-              ¿Buscas una pieza específica? Escríbenos por WhatsApp con marca,
-              modelo y año.
+              Dinos marca, modelo y año. Te ayudamos a ubicar la pieza correcta.
             </div>
           </div>
         </div>
       </section>
 
-      <section className="benefits">
-        <div className="container benefits-grid">
-          <div className="benefit-card">
-            <ShieldCheck size={20} />
-            <div>
-              <strong>Piezas de calidad</strong>
-              <p>Opciones OEM y aftermarket para diferentes necesidades.</p>
+      <section id="categorias" className="category-strip">
+        <div className="container category-strip-grid">
+          {['OEM Parts', 'ATV Tires', 'Dirt Bike Parts', 'Auto Parts'].map((item) => (
+            <div key={item} className="category-card">
+              <div className="category-card-title">{item}</div>
+              <div className="category-card-link">Explorar</div>
             </div>
-          </div>
-          <div className="benefit-card">
-            <Wrench size={20} />
-            <div>
-              <strong>Soporte práctico</strong>
-              <p>Ayuda para identificar piezas según marca, modelo y año.</p>
-            </div>
-          </div>
-          <div className="benefit-card">
-            <Star size={20} />
-            <div>
-              <strong>Productos populares</strong>
-              <p>Selección inicial para motos, ATV y vehículos.</p>
-            </div>
-          </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="features">
+        <div className="container features-grid">
+          {featureCards.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.title} className="feature-card">
+                <div className="feature-icon">
+                  <Icon size={20} />
+                </div>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.text}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -274,8 +304,8 @@ export default function App() {
         <div className="container">
           <div className="section-head">
             <div className="section-label">Catálogo</div>
-            <h2>Explora productos</h2>
-            <p>Filtra por categoría o busca por nombre, marca o modelo.</p>
+            <h2>Productos destacados</h2>
+            <p>Busca por nombre, marca, modelo o categoría.</p>
           </div>
 
           <div className="toolbar">
@@ -350,14 +380,31 @@ export default function App() {
         </div>
       </section>
 
-      <section className="contact">
+      <section className="brands">
+        <div className="container">
+          <div className="section-head compact">
+            <div className="section-label">Marcas</div>
+            <h2>Trabajamos con marcas conocidas</h2>
+          </div>
+
+          <div className="brands-row">
+            {['Yamaha', 'Honda', 'KTM', 'Toyota', 'Maxxis', 'DID', 'ITP'].map((brand) => (
+              <div key={brand} className="brand-pill">
+                {brand}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" className="contact">
         <div className="container contact-box">
           <div>
             <div className="section-label">Contacto</div>
-            <h2>¿Necesitas una pieza específica?</h2>
+            <h2>¿Buscas una pieza específica?</h2>
             <p>
-              Envíanos marca, modelo, año y la pieza que buscas. Te respondemos
-              por WhatsApp con disponibilidad e información.
+              Envíanos marca, modelo, año y la pieza que necesitas. Te
+              respondemos por WhatsApp con información y disponibilidad.
             </p>
           </div>
 
