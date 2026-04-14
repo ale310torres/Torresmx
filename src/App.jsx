@@ -10,7 +10,7 @@ export default function App() {
       }}
     >
       <h1>Torresmx está funcionando</h1>
-      <p>Si ves esto, la app ya está renderizando correctamente.</p>
+      <p>Si ves esto, el render ya quedó bien.</p>
     </div>
   );
 }
