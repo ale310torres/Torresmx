@@ -4,13 +4,13 @@ export default function App() {
       style={{
         minHeight: '100vh',
         background: '#111827',
-        color: 'white',
+        color: '#ffffff',
         padding: '40px',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: 'Arial, Helvetica, sans-serif',
       }}
     >
       <h1>Torresmx está funcionando</h1>
-      <p>Si ves esto, el problema está en tu App anterior o en tus estilos.</p>
+      <p>Si ves esto, la app ya está renderizando correctamente.</p>
     </div>
   );
 }
