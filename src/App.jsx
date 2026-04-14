@@ -1,8 +1,16 @@
 export default function App() {
   return (
-    <div style={{ padding: '40px', color: 'white', background: '#111827', minHeight: '100vh' }}>
+    <div
+      style={{
+        minHeight: '100vh',
+        background: '#111827',
+        color: 'white',
+        padding: '40px',
+        fontFamily: 'Arial, sans-serif',
+      }}
+    >
       <h1>Torresmx está funcionando</h1>
-      <p>Si ves esto, el problema estaba en el App anterior o en los estilos.</p>
+      <p>Si ves esto, el problema está en tu App anterior o en tus estilos.</p>
     </div>
-  )
+  );
 }
