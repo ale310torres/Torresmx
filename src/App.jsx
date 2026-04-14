@@ -8,140 +8,43 @@ import {
   Truck,
   Bike,
 } from 'lucide-react';
-
-const inventory = [
-  {
-    id: 1,
-    name: 'Filtro de Aire OEM Yamaha YZ250F',
-    category: 'OEM Parts',
-    brand: 'Yamaha',
-    model: 'YZ250F',
-    year: '2010+',
-    price: 34.99,
-    badge: 'Top Seller',
-    image:
-      'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 2,
-    name: 'Kit de Frenos Delanteros Honda TRX450R',
-    category: 'Brakes',
-    brand: 'Honda',
-    model: 'TRX450R',
-    year: '2012+',
-    price: 119.99,
-    badge: 'Race Ready',
-    image:
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 3,
-    name: 'Goma ATV All Terrain 25x8-12',
-    category: 'ATV Tires',
-    brand: 'Maxxis',
-    model: 'ATV',
-    year: 'Universal',
-    price: 149.99,
-    badge: 'Popular',
-    image:
-      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 4,
-    name: 'Cadena DID Dirt Bike 520',
-    category: 'Dirt Bike Parts',
-    brand: 'DID',
-    model: '520',
-    year: 'Universal',
-    price: 89.99,
-    badge: 'Durable',
-    image:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 5,
-    name: 'Aceite OEM Toyota 5W-30',
-    category: 'Auto Parts',
-    brand: 'Toyota',
-    model: 'OEM',
-    year: 'Universal',
-    price: 12.99,
-    badge: 'OEM',
-    image:
-      'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 6,
-    name: 'Shock Delantero KTM SX',
-    category: 'Suspension',
-    brand: 'KTM',
-    model: 'SX',
-    year: '2016+',
-    price: 239.99,
-    badge: 'Premium',
-    image:
-      'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 7,
-    name: 'Juego de Aros y Gomas UTV',
-    category: 'ATV Tires',
-    brand: 'ITP',
-    model: 'UTV',
-    year: 'Universal',
-    price: 599.99,
-    badge: 'Heavy Duty',
-    image:
-      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 8,
-    name: 'Pastillas de Freno Toyota Tacoma',
-    category: 'Auto Parts',
-    brand: 'Toyota',
-    model: 'Tacoma',
-    year: '2005-2015',
-    price: 54.99,
-    badge: 'Best Value',
-    image:
-      'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1200&q=80',
-  },
-];
+import inventory from './data/inventory.json';
 
 const categories = [
   'All',
-  'OEM Parts',
-  'ATV Tires',
   'Dirt Bike Parts',
-  'Auto Parts',
-  'Brakes',
+  'ATV Parts',
+  'UTV Parts',
+  'ATV Tires',
   'Suspension',
+  'OEM Parts',
+  'Accessories',
 ];
 
 const categoryCards = [
   {
-    title: 'ATV Tires',
-    subtitle: 'Tracción, terreno y durabilidad',
-    image:
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
     title: 'Dirt Bike Parts',
-    subtitle: 'Piezas para riding y mantenimiento',
+    subtitle: 'Piezas para motocross y enduro',
     image:
       'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80',
   },
   {
-    title: 'OEM Parts',
-    subtitle: 'Opciones confiables por marca',
+    title: 'ATV Parts',
+    subtitle: 'Mantenimiento y performance',
     image:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
   },
   {
-    title: 'Auto Parts',
-    subtitle: 'Piezas para uso diario y proyecto',
+    title: 'ATV Tires',
+    subtitle: 'Tracción y durabilidad',
     image:
       'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    title: 'UTV Parts',
+    subtitle: 'Trabajo, recreación y upgrade',
+    image:
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
   },
 ];
 
@@ -149,17 +52,17 @@ const featureCards = [
   {
     icon: ShieldCheck,
     title: 'Piezas confiables',
-    text: 'OEM y aftermarket para distintos presupuestos y necesidades.',
+    text: 'OEM y aftermarket para dirt bikes, ATV y UTV.',
   },
   {
     icon: Wrench,
-    title: 'Soporte práctico',
+    title: 'Ayuda práctica',
     text: 'Te ayudamos a identificar piezas por marca, modelo y año.',
   },
   {
     icon: Truck,
-    title: 'Proceso rápido',
-    text: 'Búsqueda fácil y contacto directo por WhatsApp.',
+    title: 'Catálogo simple',
+    text: 'Encuentra rápido lo que buscas y escríbenos por WhatsApp.',
   },
 ];
 
@@ -177,14 +80,15 @@ export default function App() {
         item.name.toLowerCase().includes(q) ||
         item.brand.toLowerCase().includes(q) ||
         item.model.toLowerCase().includes(q) ||
-        item.category.toLowerCase().includes(q);
+        item.category.toLowerCase().includes(q) ||
+        item.sku.toLowerCase().includes(q);
 
       return matchesCategory && matchesSearch;
     });
   }, [search, activeCategory]);
 
-  const buildWhatsAppUrl = (itemName) => {
-    const message = `Hola, estoy interesado en ${itemName}. ¿Está disponible?`;
+  const buildWhatsAppUrl = (item) => {
+    const message = `Hola, estoy interesado en ${item.name} (${item.sku}). ¿Está disponible?`;
     return `https://wa.me/17874154344?text=${encodeURIComponent(message)}`;
   };
 
@@ -193,7 +97,7 @@ export default function App() {
       <div className="top-strip">
         <div className="container top-strip-inner">
           <span>TORRESMX</span>
-          <span>ATV • DIRT BIKE • OEM • AUTO PARTS</span>
+          <span>DIRT BIKES • ATV • UTV • OEM PARTS • ACCESSORIES</span>
         </div>
       </div>
 
@@ -201,7 +105,7 @@ export default function App() {
         <div className="container header-inner">
           <div className="logo-wrap">
             <div className="logo">TORRESMX</div>
-            <div className="logo-sub">Motorsports & Parts</div>
+            <div className="logo-sub">Dirt Bike • ATV • UTV Parts</div>
           </div>
 
           <nav className="nav">
@@ -227,14 +131,14 @@ export default function App() {
         <div className="hero-bg" />
         <div className="container hero-content">
           <div className="hero-copy">
-            <div className="eyebrow">PREMIUM PARTS • ATV • DIRT BIKE • AUTO</div>
+            <div className="eyebrow">DIRT BIKE • ATV • UTV • OEM • PERFORMANCE</div>
             <h1>
-              Piezas, gomas y accesorios para <span>rodar fuerte</span>
+              Piezas y gomas para <span>rodar fuerte</span>
             </h1>
             <p>
               Encuentra piezas OEM, frenos, suspensión, gomas y accesorios para
-              tu ATV, motora o auto. Búsqueda simple y atención rápida por
-              WhatsApp.
+              dirt bikes, ATV y UTV. Catálogo visual, búsqueda simple y
+              atención rápida por WhatsApp.
             </p>
 
             <div className="hero-actions">
@@ -249,25 +153,30 @@ export default function App() {
             <div className="hero-points">
               <div className="hero-point">
                 <strong>OEM & Aftermarket</strong>
-                <span>Opciones para distintos budgets</span>
+                <span>Opciones para diferentes budgets y necesidades</span>
               </div>
               <div className="hero-point">
                 <strong>Atención rápida</strong>
-                <span>WhatsApp directo</span>
+                <span>WhatsApp directo para piezas específicas</span>
               </div>
               <div className="hero-point">
-                <strong>Estilo moderno</strong>
-                <span>Catálogo visual y fácil de navegar</span>
+                <strong>Enfoque powersports</strong>
+                <span>Solo dirt bikes, ATV y UTV</span>
               </div>
             </div>
           </div>
 
           <div className="hero-side-card">
-            <div className="side-label">Top líneas</div>
+            <div className="side-label">Top categorías</div>
             <div className="side-list">
               <div className="side-item">
                 <Bike size={18} />
                 <span>Dirt Bike Parts</span>
+                <ChevronRight size={16} />
+              </div>
+              <div className="side-item">
+                <Truck size={18} />
+                <span>ATV Parts</span>
                 <ChevronRight size={16} />
               </div>
               <div className="side-item">
@@ -277,12 +186,7 @@ export default function App() {
               </div>
               <div className="side-item">
                 <Wrench size={18} />
-                <span>OEM Parts</span>
-                <ChevronRight size={16} />
-              </div>
-              <div className="side-item">
-                <ShieldCheck size={18} />
-                <span>Auto Parts</span>
+                <span>UTV Parts</span>
                 <ChevronRight size={16} />
               </div>
             </div>
@@ -345,7 +249,7 @@ export default function App() {
           <div className="section-head">
             <div className="section-kicker">Featured inventory</div>
             <h2>Productos destacados</h2>
-            <p>Filtra por categoría o busca por nombre, marca o modelo.</p>
+            <p>Filtra por categoría o busca por nombre, marca, modelo o SKU.</p>
           </div>
 
           <div className="catalog-toolbar">
@@ -353,7 +257,7 @@ export default function App() {
               <Search size={18} />
               <input
                 type="text"
-                placeholder="Buscar producto, marca o modelo..."
+                placeholder="Buscar producto, marca, modelo o SKU..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -394,12 +298,19 @@ export default function App() {
                     <span>{item.brand}</span>
                     <span>{item.model}</span>
                     <span>{item.year}</span>
+                    <span>{item.sku}</span>
                   </div>
 
+                  <p className="product-description">{item.description}</p>
+
                   <div className="product-bottom">
-                    <div className="product-price">${item.price.toFixed(2)}</div>
+                    <div>
+                      <div className="product-price">${item.price.toFixed(2)}</div>
+                      <div className="product-stock">Stock: {item.stock}</div>
+                    </div>
+
                     <a
-                      href={buildWhatsAppUrl(item.name)}
+                      href={buildWhatsAppUrl(item)}
                       target="_blank"
                       rel="noreferrer"
                       className="btn btn-primary btn-small"
@@ -428,7 +339,7 @@ export default function App() {
           </div>
 
           <div className="brand-row">
-            {['Yamaha', 'Honda', 'KTM', 'Toyota', 'Maxxis', 'ITP', 'DID'].map((brand) => (
+            {['Yamaha', 'Honda', 'KTM', 'Maxxis', 'ITP', 'DID', 'Pro Taper'].map((brand) => (
               <div key={brand} className="brand-chip">
                 {brand}
               </div>
@@ -473,7 +384,7 @@ export default function App() {
         <div className="container footer-inner">
           <div>
             <div className="logo footer-logo">TORRESMX</div>
-            <div className="footer-sub">ATV • Dirt Bike • Auto Parts</div>
+            <div className="footer-sub">Dirt Bike • ATV • UTV Parts</div>
           </div>
           <div className="footer-links">
             <a href="#categorias">Categorías</a>
