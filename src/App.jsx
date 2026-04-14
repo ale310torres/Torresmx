@@ -7,7 +7,6 @@ import {
   Wrench,
   Truck,
   Bike,
-  Star,
 } from 'lucide-react';
 
 const inventory = [
@@ -242,4 +241,247 @@ export default function App() {
               <a className="btn btn-primary" href="#catalogo">
                 Ver catálogo
               </a>
-              <a className="btn btn-secondary" href="#contacto
+              <a className="btn btn-secondary" href="#contacto">
+                Solicitar pieza
+              </a>
+            </div>
+
+            <div className="hero-points">
+              <div className="hero-point">
+                <strong>OEM & Aftermarket</strong>
+                <span>Opciones para distintos budgets</span>
+              </div>
+              <div className="hero-point">
+                <strong>Atención rápida</strong>
+                <span>WhatsApp directo</span>
+              </div>
+              <div className="hero-point">
+                <strong>Estilo moderno</strong>
+                <span>Catálogo visual y fácil de navegar</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-side-card">
+            <div className="side-label">Top líneas</div>
+            <div className="side-list">
+              <div className="side-item">
+                <Bike size={18} />
+                <span>Dirt Bike Parts</span>
+                <ChevronRight size={16} />
+              </div>
+              <div className="side-item">
+                <Truck size={18} />
+                <span>ATV Tires</span>
+                <ChevronRight size={16} />
+              </div>
+              <div className="side-item">
+                <Wrench size={18} />
+                <span>OEM Parts</span>
+                <ChevronRight size={16} />
+              </div>
+              <div className="side-item">
+                <ShieldCheck size={18} />
+                <span>Auto Parts</span>
+                <ChevronRight size={16} />
+              </div>
+            </div>
+            <p className="side-note">
+              Envíanos marca, modelo y año para ayudarte a encontrar la pieza
+              correcta.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="categorias" className="category-section">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-kicker">Shop by category</div>
+            <h2>Categorías principales</h2>
+          </div>
+
+          <div className="category-grid">
+            {categoryCards.map((item) => (
+              <div
+                key={item.title}
+                className="category-card"
+                style={{
+                  backgroundImage: `linear-gradient(180deg, rgba(8,12,20,0.1), rgba(8,12,20,0.88)), url(${item.image})`,
+                }}
+              >
+                <div className="category-card-content">
+                  <div className="category-title">{item.title}</div>
+                  <div className="category-subtitle">{item.subtitle}</div>
+                  <div className="category-link">Explorar</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="feature-section">
+        <div className="container feature-grid">
+          {featureCards.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.title} className="feature-card">
+                <div className="feature-icon">
+                  <Icon size={20} />
+                </div>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.text}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="catalogo" className="catalog-section">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-kicker">Featured inventory</div>
+            <h2>Productos destacados</h2>
+            <p>Filtra por categoría o busca por nombre, marca o modelo.</p>
+          </div>
+
+          <div className="catalog-toolbar">
+            <div className="search-wrap">
+              <Search size={18} />
+              <input
+                type="text"
+                placeholder="Buscar producto, marca o modelo..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+
+            <div className="filter-row">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  className={`filter-chip ${activeCategory === category ? 'active' : ''}`}
+                  onClick={() => setActiveCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="results-row">
+            <span>{filteredInventory.length} productos encontrados</span>
+          </div>
+
+          <div className="product-grid">
+            {filteredInventory.map((item) => (
+              <article key={item.id} className="product-card">
+                <div
+                  className="product-media"
+                  style={{ backgroundImage: `url(${item.image})` }}
+                >
+                  <div className="product-badge">{item.badge}</div>
+                </div>
+
+                <div className="product-content">
+                  <div className="product-category">{item.category}</div>
+                  <h3>{item.name}</h3>
+
+                  <div className="product-meta">
+                    <span>{item.brand}</span>
+                    <span>{item.model}</span>
+                    <span>{item.year}</span>
+                  </div>
+
+                  <div className="product-bottom">
+                    <div className="product-price">${item.price.toFixed(2)}</div>
+                    <a
+                      href={buildWhatsAppUrl(item.name)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-primary btn-small"
+                    >
+                      WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {filteredInventory.length === 0 && (
+            <div className="empty-state">
+              No encontramos productos con ese filtro. Intenta otra búsqueda.
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section id="marcas" className="brand-section">
+        <div className="container">
+          <div className="section-head compact">
+            <div className="section-kicker">Brands</div>
+            <h2>Marcas populares</h2>
+          </div>
+
+          <div className="brand-row">
+            {['Yamaha', 'Honda', 'KTM', 'Toyota', 'Maxxis', 'ITP', 'DID'].map((brand) => (
+              <div key={brand} className="brand-chip">
+                {brand}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="promo-section">
+        <div className="container promo-box">
+          <div className="promo-copy">
+            <div className="section-kicker">Need help?</div>
+            <h2>¿No ves la pieza que buscas?</h2>
+            <p>
+              Escríbenos por WhatsApp con marca, modelo, año y la pieza que
+              necesitas. Te ayudamos a buscar disponibilidad.
+            </p>
+          </div>
+
+          <div className="promo-card">
+            <div>
+              <span>WhatsApp</span>
+              <strong>(787) 415-4344</strong>
+            </div>
+            <div>
+              <span>Email</span>
+              <strong>atmrealestatepr@gmail.com</strong>
+            </div>
+            <a
+              className="btn btn-primary btn-full"
+              href="https://wa.me/17874154344?text=Hola,%20busco%20una%20pieza%20para%20mi%20veh%C3%ADculo"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Hablar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer id="contacto" className="footer">
+        <div className="container footer-inner">
+          <div>
+            <div className="logo footer-logo">TORRESMX</div>
+            <div className="footer-sub">ATV • Dirt Bike • Auto Parts</div>
+          </div>
+          <div className="footer-links">
+            <a href="#categorias">Categorías</a>
+            <a href="#catalogo">Productos</a>
+            <a href="#marcas">Marcas</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
