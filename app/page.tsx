@@ -1,172 +1,38 @@
-import Image from "next/image";
-import Link from "next/link";
-import { formatMoney, getProducts } from "../lib/shopify";
-
-const categories = [
-  "Piezas para motoras fuera de carretera",
-  "Piezas para ATV",
-  "Piezas para UTV",
-  "Piezas OEM",
-  "Piezas de alto rendimiento",
-  "Kits de mantenimiento",
+'use client';
+import { useState } from 'react';
+import { ArrowDown, ArrowUpRight, ArrowRight, MessageCircle, MapPin, Flag, Wrench, ShieldCheck, X } from 'lucide-react';
+import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
+const shop = 'https://torresmx.vercel.app/shop';
+const whatsapp = (message = '¡Hola, Holeshot! Me gustaría consultar sobre piezas y gear.') => `https://wa.me/17876626169?text=${encodeURIComponent(message)}`;
+const filters = ['Todo', 'Motocross', 'ATV', 'UTV', 'Gear'] as const;
+type Filter = typeof filters[number];
+const products = [
+  { name: 'Cascos off-road', kind: 'Gear', tag: 'PROTECCIÓN', image: 0, vehicles: ['Motocross', 'ATV', 'UTV'], description: 'Encuentra el casco para tu próxima salida. Consúltanos por modelos, tallas y opciones disponibles.', detail: 'Indícanos tu talla o medida de cabeza y el uso que le darás.' },
+  { name: 'Goggles', kind: 'Gear', tag: 'VISIÓN', image: 1, vehicles: ['Motocross', 'ATV', 'UTV'], description: 'Goggles, lentes y accesorios para tus días de tierra. Te ayudamos a encontrar opciones para tu equipo.', detail: 'Cuéntanos qué casco usas y qué tipo de lente buscas.' },
+  { name: 'Botas de motocross', kind: 'Gear', tag: 'EQUIPAMIENTO', image: 2, vehicles: ['Motocross', 'ATV'], description: 'Completa tu equipo para la pista o el monte. Consulta modelos y tallas de botas para motocross.', detail: 'Envíanos tu talla habitual para consultar las opciones.' },
+  { name: 'Filtros de aire', kind: 'Piezas', tag: 'MANTENIMIENTO', image: 3, vehicles: ['Motocross', 'ATV', 'UTV'], description: 'Consulta filtros de aire para el mantenimiento de tu máquina. La pieza correcta depende de tu vehículo.', detail: 'Necesitamos marca, modelo y año para revisar compatibilidad.' },
+  { name: 'Discos de freno', kind: 'Piezas', tag: 'FRENOS', image: 4, vehicles: ['Motocross', 'ATV', 'UTV'], description: 'Encuentra opciones de frenado para tu vehículo. Consulta discos y piezas relacionadas con nuestro equipo.', detail: 'Comparte marca, modelo, año y si buscas el disco delantero o trasero.' },
+  { name: 'Gomas todoterreno', kind: 'Piezas', tag: 'TRACCIÓN', image: 5, vehicles: ['ATV', 'UTV'], description: 'El terreno cambia. Tu equipo también. Consulta medidas y opciones de gomas para tu ATV o UTV.', detail: 'Envíanos la medida que aparece en tu goma y el terreno donde corres.' },
 ];
-
-const brands = [
-  "Yamaha",
-  "Honda",
-  "Kawasaki",
-  "Suzuki",
-  "KTM",
-  "Polaris",
-  "Can-Am",
-  "CF Moto",
-  "Wiseco",
-  "ProX",
-  "All Balls",
-  "Moose Racing",
-  "Twin Air",
-  "Renthal",
-  "NGK",
-  "K&N",
-];
-
-export const revalidate = 300;
-
-export default async function Home() {
-  const products = await getProducts(4);
-
-  return (
-    <main>
-      <section className="hero">
-        <Image
-          src="/images/offroad-hero.png"
-          alt="Motora fuera de carretera y UTV recorriendo una ruta fuerte"
-          fill
-          priority
-          className="hero-image"
-        />
-        <div className="hero-shade" />
-        <div className="hero-content">
-          <p className="eyebrow">Piezas OEM, reemplazo y alto rendimiento</p>
-          <h1>Domina la ruta con las piezas correctas</h1>
-          <p>
-            Piezas para motoras, ATVs y UTVs. Alto rendimiento, mantenimiento,
-            piezas OEM y reemplazos para pilotos que no se quedan a pie.
-          </p>
-          <form className="search-panel" action="/shop">
-            <input name="q" placeholder="Busca por pieza, marca, modelo o número de parte" />
-            <button type="submit">Buscar</button>
-          </form>
-          <div className="hero-actions">
-            <Link className="primary-button" href="/shop">
-              Comprar piezas
-            </Link>
-            <Link className="secondary-button" href="/buscar-vehiculo">
-              Buscar por vehículo
-            </Link>
-            <Link className="whatsapp-button" href="/contacto">
-              Hablar por WhatsApp
-            </Link>
-          </div>
-        </div>
+function ProductImage({ index, name }: { index: number; name: string }) {
+  return <div className={`product-image product-image-${index}`} role="img" aria-label={`Imagen ilustrativa de ${name}`} />;
+}
+function Brand() { return <a href="#inicio" className="brand" aria-label="Holeshot Power Parts, inicio"><img src="/images/holeshot-logo.webp" alt="" className="brand-emblem"/><span className="wordmark">HOLESHOT<span className="brand-slashes" aria-hidden="true">///</span><small>POWER PARTS · PUERTO RICO</small></span></a>; }
+export default function Home() {
+  const [filter, setFilter] = useState<Filter>('Todo');
+  const visible = products.filter(p => filter === 'Todo' || (filter === 'Gear' ? p.kind === 'Gear' : p.vehicles.includes(filter)));
+  return <>
+    <a className="skip-link" href="#catalogo">Ir al catálogo</a>
+    <div className="topbar"><span><span className="status-dot"/> DESDE PUERTO RICO. PARA LOS QUE CORREN.</span><a href={whatsapp()} target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp <ArrowUpRight size={14}/></a></div>
+    <header className="header"><Brand/><nav className="main-nav" aria-label="Navegación principal">{(['Motocross','ATV','UTV','Gear'] as Filter[]).map(item => <a key={item} href="#catalogo" onClick={() => setFilter(item)}>{item}</a>)}<a href={shop} target="_blank" rel="noopener noreferrer">Tienda <ArrowUpRight size={13}/></a></nav><a className="header-contact" href={whatsapp()} target="_blank" rel="noopener noreferrer"><MessageCircle size={19}/><span>¿Qué pieza buscas?</span><ArrowUpRight size={17}/></a></header>
+    <main id="inicio">
+      <section className="hero" aria-labelledby="hero-title"><img className="hero-photo" src="/images/holeshot-action.png" alt="Piloto de motocross recorriendo una pista de tierra entre vegetación tropical" fetchPriority="high"/><div className="hero-shade"/><div className="hero-content"><p className="eyebrow"><span/> EL TERRENO ES TUYO</p><h1 id="hero-title">DALE DURO.<br/><em>DALE HOLESHOT.</em></h1><p className="hero-description">Piezas y gear para motocross, ATV y UTV.<br/>De la pista al monte, tu próxima salida empieza aquí.</p><div className="hero-actions"><a className="button button-accent" href="#catalogo" onClick={() => setFilter('Todo')}>EXPLORAR PRODUCTOS <ArrowUpRight size={19}/></a><a className="hero-secondary" href={shop} target="_blank" rel="noopener noreferrer">Ir a la tienda <ArrowRight size={17}/></a></div></div><div className="hero-bottom"><span><MapPin size={15}/> PUERTO RICO</span><a href="#categorias">ENCUENTRA TU LÍNEA <ArrowDown size={16}/></a><span className="hero-count">01 <i>/</i> HOLESHOT</span></div></section>
+      <section id="categorias" className="vehicle-strip" aria-label="Explora por vehículo">{[{name:'Motocross',num:'01',copy:'Hecho para la pista.'},{name:'ATV',num:'02',copy:'Más allá del camino.'},{name:'UTV',num:'03',copy:'Lleva la aventura más lejos.'}].map(v => <a key={v.name} href="#catalogo" className="vehicle-link" onClick={() => setFilter(v.name as Filter)}><span className="vehicle-number">{v.num}</span><div><h2>{v.name}</h2><p>{v.copy}</p></div><ArrowUpRight size={28}/></a>)}</section>
+      <section id="catalogo" className="catalog section-wrap" aria-labelledby="catalog-title"><div className="section-heading"><div><p className="eyebrow dark-eyebrow">EQUIPA TU PRÓXIMA SALIDA</p><h2 id="catalog-title">PIEZAS. GEAR. <span>ACCIÓN.</span></h2></div><a className="text-link" href={shop} target="_blank" rel="noopener noreferrer">Ver catálogo completo <ArrowUpRight size={18}/></a></div><div className="catalog-toolbar"><div className="filter-buttons" role="group" aria-label="Filtrar categorías">{filters.map(item => <button key={item} className={filter === item ? 'filter active' : 'filter'} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item === 'Todo' ? 'Ver todo' : item}</button>)}</div><p className="result-count" aria-live="polite">{visible.length} categorías</p></div>
+        <div className="product-grid">{visible.map(p => <article className="product-card" key={p.name}><Dialog><DialogTrigger className="product-trigger" aria-label={`Ver detalles de ${p.name}`}><div className="product-visual"><span className="product-type">{p.kind}</span><ProductImage index={p.image} name={p.name}/><span className="product-open"><ArrowUpRight size={20}/></span></div><div className="product-info"><p>{p.tag}</p><h3>{p.name}</h3><span>Explorar opciones <ArrowRight size={15}/></span></div></DialogTrigger><DialogContent className="product-dialog" showCloseButton={false}><DialogClose className="dialog-close" aria-label="Cerrar detalles"><X size={22}/></DialogClose><div className="dialog-image"><ProductImage index={p.image} name={p.name}/></div><div className="dialog-copy"><p className="eyebrow dark-eyebrow">{p.kind} / HOLESHOT</p><DialogTitle className="dialog-title">{p.name}</DialogTitle><DialogDescription className="dialog-description">{p.description}</DialogDescription><p className="fitment"><Wrench size={19}/><span>{p.detail}</span></p><a className="button button-accent" href={whatsapp(`¡Hola, Holeshot! Me interesan: ${p.name}. Quisiera consultar opciones, precio y disponibilidad.`)} target="_blank" rel="noopener noreferrer"><MessageCircle size={19}/> CONSULTAR POR WHATSAPP <ArrowUpRight size={18}/></a><a className="dialog-shop" href={shop} target="_blank" rel="noopener noreferrer">Ver el catálogo de la tienda <ArrowUpRight size={15}/></a><p className="illustration-note">Imagen ilustrativa. Confirma modelo, precio y disponibilidad con Holeshot.</p></div></DialogContent></Dialog></article>)}</div><p className="catalog-note">Explora nuestras categorías. Imágenes ilustrativas; consulta modelos, precios y disponibilidad en la tienda o por WhatsApp.</p>
       </section>
-
-      <section className="vehicle-strip">
-        <span>Motora fuera de carretera</span>
-        <span>Motora</span>
-        <span>ATV</span>
-        <span>UTV</span>
-        <span>Vehículo lado a lado</span>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <p className="eyebrow">Categorías destacadas</p>
-          <h2>Encuentra piezas por categoría</h2>
-        </div>
-        <div className="category-grid">
-          {categories.map((category) => (
-            <Link className="category-card" href="/categorias" key={category}>
-              <span>{category}</span>
-              <small>Ver productos</small>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="fitment-band">
-        <div>
-          <p className="eyebrow">No adivines</p>
-          <h2>Compra la pieza compatible con tu máquina</h2>
-          <p>
-            Filtra por tipo de vehículo, marca, año y modelo para encontrar
-            piezas correctas desde el primer intento.
-          </p>
-        </div>
-        <Link className="primary-button" href="/buscar-vehiculo">
-          Buscar piezas compatibles
-        </Link>
-      </section>
-
-      <section className="section" id="ofertas">
-        <div className="section-heading">
-          <p className="eyebrow">Más vendidos</p>
-          <h2>Productos populares</h2>
-        </div>
-        <div className="product-grid">
-          {products.map((product) => (
-            <article className="product-card" key={product.id}>
-              <div className="product-image">
-                {product.image ? (
-                  <img src={product.image.url} alt={product.image.altText} />
-                ) : (
-                  <span>{product.productType || product.vendor || "Pieza"}</span>
-                )}
-              </div>
-              <div className="product-copy">
-                <small>{product.availableForSale ? "En stock" : "Agotado"}</small>
-                <h3>{product.title}</h3>
-                <div className="product-meta">
-                  <strong>{formatMoney(product.price, product.currencyCode)}</strong>
-                  <span>{product.vendor || "Holeshot"}</span>
-                </div>
-                <Link href={`/producto/${product.handle}`}>Ver producto</Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="request-band">
-        <div>
-          <p className="eyebrow">Solicita una pieza</p>
-          <h2>¿No encuentras la pieza que necesitas?</h2>
-          <p>
-            Envíanos la marca, modelo, año y una foto de la pieza. Te ayudamos a
-            conseguirla.
-          </p>
-        </div>
-        <Link className="secondary-button" href="/request-a-part">
-          Solicitar pieza por WhatsApp
-        </Link>
-      </section>
-
-      <section className="trust-grid">
-        {["Soporte experto", "Piezas verificadas", "Envíos rápidos", "Compra segura"].map(
-          (item) => (
-            <div key={item}>
-              <strong>{item}</strong>
-              <p>Servicio claro para comprar con confianza y mantener tu máquina lista.</p>
-            </div>
-          ),
-        )}
-      </section>
-
-      <section className="brand-cloud">
-        {brands.map((brand) => (
-          <span key={brand}>{brand}</span>
-        ))}
-      </section>
-    </main>
-  );
+      <section className="contact-banner section-wrap" aria-labelledby="contact-title"><div><p className="eyebrow">TU MÁQUINA. TU ESTILO. TU TIENDA.</p><h2 id="contact-title">¿BUSCAS UNA<br/><em>PIEZA ESPECÍFICA?</em></h2><p>Envíanos la marca, el modelo y el año de tu vehículo.<br/>Te ayudamos a encontrar lo que necesitas.</p></div><div className="contact-action"><a className="button button-accent" href={whatsapp('¡Hola, Holeshot! Estoy buscando una pieza. Mi vehículo es: marca ___, modelo ___, año ___. Necesito: ___.')} target="_blank" rel="noopener noreferrer"><MessageCircle size={21}/> ESCRÍBENOS <ArrowUpRight size={19}/></a><a className="contact-number" href="tel:+17876626169">(787) 662-6169</a><span><MapPin size={14}/> Puerto Rico</span></div></section>
+      <div className="values section-wrap"><div><Flag size={23}/><span>MOTOCROSS, ATV & UTV</span></div><div><Wrench size={23}/><span>PIEZAS PARA TU MÁQUINA</span></div><div><ShieldCheck size={23}/><span>GEAR PARA TU PRÓXIMA SALIDA</span></div></div>
+    </main><footer className="footer"><div className="footer-main"><Brand/><p>Nos vemos en la tierra.</p><a href={whatsapp()} target="_blank" rel="noopener noreferrer">WHATSAPP <ArrowUpRight size={16}/></a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Holeshot Power Parts. Puerto Rico.</span><span>PARA LOS QUE NUNCA SUELTAN.</span></div></footer>
+  </>;
 }
